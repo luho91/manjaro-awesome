@@ -41,13 +41,13 @@ jobs:
           - kernel: ${{ needs.prepare-release.outputs.mainline }}
             experimental: true
     steps:
-      - uses: styfle/cancel-workflow-action@0.9.1
+      - uses: actions/checkout@v3
         with:
-          access_token: ${{ github.token }}
+          submodules: true
       - name: image-build-upload
         uses: Manjaro/manjaro-iso-action@v2.8
         with:
-          iso-profiles-repo: https://github.com/luho91/manjaro-awesome/iso-profiles
+          iso-profiles-path: ./iso-profiles
           edition: ${{ matrix.edition }}
           branch: ${{ matrix.branch }}
           scope: ${{ matrix.scope }}
