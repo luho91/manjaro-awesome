@@ -1,0 +1,218 @@
+## Network
+
+avahi                              # required by gvfs
+>extra modemmanager                # optional for networkmanager
+netctl
+networkmanager-openconnect
+networkmanager-openvpn
+networkmanager-pptp
+networkmanager-vpnc
+nss-mdns                           # optional for avahi
+ntp
+openssh                            # required by gnome-keyring
+>extra openvpn                     # required by networkmanager-openvpn
+
+
+## Libraries for Sound/Audio/Video
+
+>extra gstreamer                   # required by cinnamon
+>extra libdvdcss
+manjaro-alsa
+manjaro-gstreamer
+manjaro-pipewire
+
+
+## Fonts
+
+cantarell-fonts                    # required by manjaro-cinnamon settings
+gnu-free-fonts                     # required by vivaldi
+noto-fonts-cjk
+>extra terminus-font
+ttf-comfortaa                      # required by manjaro-cinnamon settings
+ttf-dejavu                         # required by thunderbird
+>extra ttf-droid                   # required by thunderbird
+>extra ttf-inconsolata
+>extra ttf-indic-otf
+>extra ttf-liberation              # required by thunderbird
+
+
+## Package management
+pamac-gtk
+>extra pamac-flatpak-plugin
+#>extra pamac-snap-plugin
+
+
+## Printing
+
+>extra manjaro-printer
+>extra system-config-printer       # optional for cinnamon & manjaro-printer
+
+
+## Cinnamon
+
+cinnamon                           # required by manjaro-cinnamon settings & several other packages
+#cinnamon-panel-chooser
+cinnamon-sounds                    # optional for manjaro-cinnamon-settings
+cinnamon-translations              # optional for various cinnamon packages
+>extra cinnamon-wallpapers         # optional for artwork-cinnamon-minimal
+
+
+## Nemo extensions
+
+#nemo-audio-tab
+#>extra nemo-bulk-rename
+#nemo-compare                      # AUR
+#nemo-dropbox                      # AUR
+#nemo-emblems
+#nemo-media-columns                # pypdf2 in AUR but mostly unmaintained
+>extra nemo-fileroller
+#nemo-image-converter
+#nemo-pastebin
+>extra nemo-preview
+>extra nemo-python
+#nemo-repairer                     # AUR
+#nemo-seahorse
+>extra nemo-share
+#nemo-terminal
+
+
+## X-Apps group
+
+>extra bulky
+>extra pix
+#sticky
+#thingy
+xed
+>extra xapp-appimage-thumbnailer
+>extra xapp-epub-thumbnailer
+>extra xapp-mp3-thumbnailer
+>extra xapp-raw-thumbnailer
+>extra xapp-vorbiscomment-thumbnailer
+>extra xreader
+>extra xviewer-plugins
+
+
+## GNOME group
+
+>extra baobab
+>extra gnome-disk-utility
+gnome-keyring
+>extra gnome-system-monitor
+gvfs-afc
+gvfs-goa                           # required by gvfs-google
+gvfs-google                        # optional for gnome-online-accounts
+gvfs-gphoto2
+gvfs-mtp
+gvfs-smb
+xdg-user-dirs-gtk
+yelp
+
+
+## GNOME Extra
+
+>extra dconf-editor                # developer tools
+gnome-terminal
+
+
+## Themes
+
+artwork-cinnamon-minimal           # required by manjaro-cinnamon settings
+bibata-cursor-theme                # required by manjaro-cinnamon settings
+gnome-themes-extra
+grub-theme-manjaro
+kvantum-manjaro                    # required by manjaro-cinnamon settings
+mint-l-theme                       # required by manjaro-cinnamon settings
+mint-themes                        # required by manjaro-cinnamon settings
+papirus-maia-icon-theme            # required by manjaro-cinnamon settings
+#plymouth-theme-manjaro-cinnamon   # optional for manjaro-cinnamon settings
+qt5ct                              # required by manjaro-cinnamon settings
+
+
+## Applications
+
+>extra apparmor
+>extra blueman
+>extra celluloid
+>extra deluge
+>extra ffmpegthumbnailer
+>basic firefox                     # vivaldi included in full edition
+flatpak
+>extra galculator
+>extra gcolor3
+>extra gimp
+>extra gnome-online-accounts       # optional for cinnamon-control-center, required by gnome-control-center
+>extra gnome-screenshot
+>extra gparted
+#>extra gprename                    # required by nemo-bulk-rename
+>extra gufw
+htop
+icon-naming-utils
+inxi
+>extra libgsf                      # optional for nemo
+lightdm-settings
+lightdm-slick-greeter              # required by lightdm-settings
+>extra lollypop
+manjaro-application-utility        # optional for manjaro-hello
+manjaro-hello
+manjaro-settings-manager-notifier  # optional for manjaro-settings-manager
+mintstick
+>extra mousetweaks                 # optional for onboard
+#>extra mugshot                    # obsolete
+>multilib lib32-mesa-utils         # Why?
+>extra onboard
+>extra clipit
+pavucontrol
+>extra poppler-data                # required by gimp
+>extra powertop
+#>extra pragha
+screenfetch
+>extra thunderbird
+>extra timeshift
+touchegg                           # optional for cinnamon
+tree
+>extra udiskie
+vi
+>extra vivaldi                     # firefox included in minimal edition
+>extra vivaldi-ffmpeg-codecs       # optional for vivaldi
+>extra webapp-manager
+xdg-utils
+zensu                              # Why?
+
+## Optional dependencies for file-roller
+>extra p7zip
+>extra unrar
+>extra unace
+>extra lrzip
+>extra squashfs-tools
+
+
+## Optional dependencies for inxi
+dmidecode
+mesa-utils
+
+
+## Documentation
+#>extra manjaro-documentation-en
+
+
+## Settings packages
+
+manjaro-browser-settings
+manjaro-cinnamon-settings
+
+
+## Xorg Input Drivers
+
+>extra manjaro-input
+
+
+## Xorg Server
+
+numlockx                            # optional for lightdm-slick-greeter
+#xorg-twm                           # antiquated; optional for xorg-xinit
+xorg-xinit
+xorg-server
+xorg-xhost
+xorg-xkill
+>extra xorg-xrandr                 # optional for inxi
+
