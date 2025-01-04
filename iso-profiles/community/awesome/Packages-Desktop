@@ -22,15 +22,11 @@ gst-plugins-ugly
 gstreamer
 libva-intel-driver
 libva-mesa-driver
-libva-vdpau-driver-vp9-git
 manjaro-alsa
 manjaro-pulse
-mesa-demos
 mesa-utils
-pa-applet-git
 pavucontrol
 pulseaudio-bluetooth
-pulseaudio-ctl
 pulseaudio-zeroconf
 wireplumber
 xdg-user-dirs
@@ -48,34 +44,20 @@ ufw
 ## Package Manager/AUR
 autoconf
 automake
-binutils
 bison
-dbus
 fakeroot
-file
 flex
-gawk
 gcc
-gettext
 git
-grep
-groff
-gzip
-json-c
 libtool
 m4
 make
 p7zip
 patch
 patchutils
-pacman
 pkgconf
-sed
-sudo
 squashfs-tools
-texinfo
 tree
-which
 xfconf
 
 ## Keyrings
@@ -85,7 +67,6 @@ gnome-keyring
 avahi
 gufw
 netctl
-networkmanager
 network-manager-applet
 networkmanager-openconnect
 networkmanager-openvpn
@@ -123,8 +104,6 @@ gvfs-mtp
 gvfs-smb
 htop
 inxi
-kernel-alive
-lm_sensors
 mate-polkit
 ncdu
 powertop
@@ -141,11 +120,9 @@ gtksourceview-pkgbuild
 mlocate
 
 ## Settings
-manjaro-awesome-settings
 manjaro-browser-settings
 manjaro-settings-manager
 manjaro-settings-manager-notifier
-manjaro-zsh-config
 xfce4-settings
 
 ## Printer
@@ -154,7 +131,6 @@ cups-pdf
 cups-pk-helper
 ghostscript
 gtk3-print-backends
-hplib
 manjaro-printer
 poppler-data
 python-pillow
@@ -162,12 +138,10 @@ python-pip
 python-pyqt5
 python-reportlab
 system-config-printer
-splitx
 
 ## Files
 ffmpegthumbnailer
 freetype2
-gtkhash-thunar
 libgsf
 libopenraw
 perl-file-mimeinfo
