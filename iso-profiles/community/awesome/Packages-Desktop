@@ -22,12 +22,12 @@ gst-plugins-ugly
 gstreamer
 libva-intel-driver
 libva-mesa-driver
-libva-vdpau-driver
+libva-vdpau-driver-vp9-git
 manjaro-alsa
 manjaro-pulse
 mesa-demos
 mesa-utils
-pa-applet
+pa-applet-git
 pavucontrol
 pulseaudio-bluetooth
 pulseaudio-ctl
@@ -79,9 +79,7 @@ which
 xfconf
 
 ## Keyrings
-archlinux-keyring
 gnome-keyring
-manjaro-keyring
 
 ## Network
 avahi
