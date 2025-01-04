@@ -42,7 +42,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
       - name: image-build-upload
-        uses: Manjaro/manjaro-iso-action@v2.9
+        uses: luho91/manjaro-iso-action@v3.0
         with:
           iso-profiles-repo: https://github.com/luho91/manjaro-awesome
           edition: ${{ matrix.edition }}
