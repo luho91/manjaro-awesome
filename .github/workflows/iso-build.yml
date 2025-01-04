@@ -30,7 +30,8 @@ jobs:
         edition: [awesome]
         branch: [stable]
         scope: [minimal]
-        kernel: ${{ needs.prepare-release.outputs.stable }}
+        kernel:
+          - ${{ needs.prepare-release.outputs.stable }}
     steps:
       - uses: styfle/cancel-workflow-action@0.12.1
         with:
