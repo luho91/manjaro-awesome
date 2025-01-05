@@ -8,8 +8,8 @@ New releases every Sunday.
 - Unpack the zip.  
   `7z x manjaro-awesome-$VERSION.iso.zip`
 - Check integrity.  
-  `sha1sum -c manjaro-awesome-$VERSION.iso.sha1`
-  `sha256sum -c manjaro-awesome-$VERSION.iso.sha265`
+  `sha1sum -c manjaro-awesome-$VERSION.iso.sha1`  
+  `sha256sum -c manjaro-awesome-$VERSION.iso.sha265`  
   `sha512sum -c manjaro-awesome-$VERSION.iso.sha512`
 - Burn the ISO to desired medium.
 ### Install release
