@@ -3,7 +3,7 @@ Build your own Manjaro Linux installation ISO with Awesomewm via GitHub Actions.
 New releases every Sunday.
 ## ISO
 ### Download release
-- Download the newest release.  
+- Download the latest release.  
   `curl -s https://api.github.com/repos/luho91/manjaro-awesome/releases/latest | grep "browser_download_url" | cut -d '"' -f 4 | xargs -n 1 wget`
 - Unpack the zip.  
   `7z x manjaro-awesome-$VERSION.iso.zip`
