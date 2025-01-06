@@ -120,6 +120,7 @@ gtksourceview-pkgbuild
 mlocate
 
 ## Settings
+manjaro-awesome-settings
 manjaro-browser-settings
 manjaro-settings-manager
 manjaro-settings-manager-notifier
