@@ -114,13 +114,14 @@ upower
 
 ## Themes
 grub-theme-manjaro
+matcha-gtk-theme
+papirus-icon-theme
 
 ## Text
 gtksourceview-pkgbuild
 mlocate
 
 ## Settings
-manjaro-awesome-settings
 manjaro-browser-settings
 manjaro-settings-manager
 manjaro-settings-manager-notifier
@@ -160,6 +161,7 @@ ranger
 lxterminal
 
 ## Window Manager
+awesome
 picom
 qt5ct
 
