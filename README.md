@@ -11,9 +11,11 @@ New releases every Sunday.
   `sha1sum -c manjaro-awesome-$VERSION.iso.sha1`  
   `sha256sum -c manjaro-awesome-$VERSION.iso.sha265`  
   `sha512sum -c manjaro-awesome-$VERSION.iso.sha512`
-- Burn the ISO to desired medium.
+- Burn the ISO to desired medium or use it directly in a VM.
 ### Install release
 - Boot from the created installation medium.
-- [TBD]
+- Login with user `manjaro`, password `manjaro`, if necessary.
+- Press `Super+p` and enter `install` to find the installation tool.
+- Install Manjaro.
 ## Ansible
 TBD
