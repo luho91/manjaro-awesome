@@ -88,10 +88,11 @@ noto-fonts-cjk
 noto-fonts-emoji
 terminus-font
 ttf-bitstream-vera
+ttf-dejavu
+ttf-droid
 ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
-ttf-droid
 
 ## System/Administration
 dfc
@@ -162,9 +163,12 @@ lxterminal
 
 ## Window Manager
 awesome
+dunst
+feh
 lxqt-policykit
 picom
 qt5ct
+xdg-user-dirs
 
 ## Keyboard
 sbxkb
