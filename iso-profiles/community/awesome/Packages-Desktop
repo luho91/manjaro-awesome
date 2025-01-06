@@ -162,6 +162,7 @@ lxterminal
 
 ## Window Manager
 awesome
+lxqt-policykit
 picom
 qt5ct
 
