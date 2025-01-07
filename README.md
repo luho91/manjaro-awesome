@@ -1,5 +1,5 @@
 # Manjaro Awesome
-Build your own Manjaro Linux installation ISO with Awesomewm via GitHub Actions.
+Build your own Manjaro Linux installation ISO with AwesomeWM via GitHub Actions.
 New releases every Sunday.
 ## ISO
 ### Download release
