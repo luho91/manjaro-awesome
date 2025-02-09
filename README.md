@@ -17,5 +17,28 @@ New releases every Sunday.
 - Login with user `manjaro`, password `manjaro`, if necessary.
 - Press `Super+p` and enter `install` to find the installation tool.
 - Install Manjaro.
+## Prepare for Ansible
+- Update Pacman mirrors.  
+  `sudo pacman-mirrors --country Germany,France,United_States`
+  - Adjust country list as needed. Some countries are always faulty and will cause Pacman to fail updating.
+- Download AUR helper `yay`.  
+  `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si`
+- (sadly needed at the moment) Install ansible.  
+  `sudo pacman -Sy ansible`
 ## Ansible
-TBD
+- Change into the ansible directory.
+- Install the requirements.
+  `ansible-galaxy install -r requirements.yml`
+- Set the user variable in `master.yml` to your user name.
+- Inspect the tasks in each role and decide which ones you want to run for installation. Use `#` prefix on lines you want to disable (or delete them).
+  `roles/some_role/tasks/main.yml`
+- If you don't want to set up everything with ansible, or simply not at this time, the role `base` is meant to give you a proper, usable, but still somewhat minimalistic result.
+- To be continued ...
+## Config and Dotfiles
+- `~/.config/awesome/rc.lua` TBD
+- `~/.bashrc` TBD
+- `~/.aliases` TBD
+## Known issues
+- If you can't find the NetworkManager gui for internet access, try running `nm-applet` from terminal.
+- `ansible` is not pre-installed.
+- `yay` is not pre-installed.
