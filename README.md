@@ -24,7 +24,7 @@ New releases every Sunday.
   - Adjust country list as needed. Some countries are always faulty and will cause Pacman to fail updating.
 - Download AUR helper `yay`.  
   `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si`
-- (sadly needed at the moment) Install ansible.  
+- (This is needed for releases before 202502090259) Install ansible.  
   `sudo pacman -Sy ansible`
 ### Ansible
 - Change into the ansible directory.
@@ -41,5 +41,5 @@ New releases every Sunday.
 - `~/.aliases` TBD
 ## Known issues
 - If you can't find the NetworkManager gui for internet access, try running `nm-applet` from terminal.
-- `ansible` is not pre-installed.
+- `ansible` is not pre-installed for releases before 202502090259.
 - `yay` is not pre-installed.
