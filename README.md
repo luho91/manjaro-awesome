@@ -17,7 +17,8 @@ New releases every Sunday.
 - Login with user `manjaro`, password `manjaro`, if necessary.
 - Press `Super+p` and enter `install` to find the installation tool.
 - Install Manjaro.
-## Prepare for Ansible
+## First use
+### Prepare for Ansible
 - Update Pacman mirrors.  
   `sudo pacman-mirrors --country Germany,France,United_States`
   - Adjust country list as needed. Some countries are always faulty and will cause Pacman to fail updating.
@@ -25,7 +26,7 @@ New releases every Sunday.
   `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si`
 - (sadly needed at the moment) Install ansible.  
   `sudo pacman -Sy ansible`
-## Ansible
+### Ansible
 - Change into the ansible directory.
 - Install the requirements.
   `ansible-galaxy install -r requirements.yml`
@@ -34,7 +35,7 @@ New releases every Sunday.
   `roles/some_role/tasks/main.yml`
 - If you don't want to set up everything with ansible, or simply not at this time, the role `base` is meant to give you a proper, usable, but still somewhat minimalistic result.
 - To be continued ...
-## Config and Dotfiles
+### Config and Dotfiles
 - `~/.config/awesome/rc.lua` TBD
 - `~/.bashrc` TBD
 - `~/.aliases` TBD
