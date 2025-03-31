@@ -1,0 +1,37 @@
+---
+# tasks file for php-dev
+
+### ide ###
+
+- name: install phpstorm
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: phpstorm
+    state: present
+
+- name: install phpstorm jre
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: phpstorm-jre
+    state: present
+
+- name: Install phpstorm url handler
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: phpstorm-url-handler
+    state: present
+
+### embed browsers file ###
+
+- name: install browsers
+  ansible.builtin.import_tasks: browsers.yml
+
+### notes ###
+
+- name: obsidian
+  package:
+    name: obsidian
+    state: present

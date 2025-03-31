@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME="proxy-adminer"
+
+docker run --tty --detach \
+    --name "${CONTAINER_NAME}" \
+    --volume "${DATA_PATH}:/var/data" \
+    --network "${NETWORK_NAME}" \
+    --restart unless-stopped \
+    --env VIRTUAL_HOST=adminer.docker.test \
+    --env VIRTUAL_PORT=8080 \
+    --env ADMINER_DEFAULT_SERVER=proxy-postgres13 \
+    --env ADMINER_PLUGINS="tables-filter tinymce edit-calendar" \
+    --env ADMINER_DESIGN=rmsoft \
+    adminer:latest

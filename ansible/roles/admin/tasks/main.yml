@@ -1,0 +1,19 @@
+---
+# tasks file for admin
+
+- name: install autorandr
+  package:
+    name: autorandr
+    state: present
+
+- name: install zeitkatze
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: zeitkatze
+    state: present
+
+- name: install fuzzyfinder
+  package:
+    name: fzf
+    state: present

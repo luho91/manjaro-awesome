@@ -1,0 +1,68 @@
+---
+# base tasks to make a minimal installation usable
+
+### utility ###
+
+- name: update pacman (pacman -Syu)
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+    upgrade_extra_args: --noconfirm
+
+- name: synchronize time
+  ansible.builtin.shell:
+    cmd: timedatectl set-ntp true
+
+- name: install yay
+  become: false
+  ansible.builtin.shell:
+    cmd: git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+    creates: /usr/bin/yay
+
+### awesome widgets ###
+
+- name: Download widgets repository
+  ansible.builtin.shell:
+    cmd: git clone https://github.com/streetturtle/awesome-wm-widgets.git
+    chdir: "{{ '/home/' + user + '/.config/awesome/' }}"
+    creates: "{{ '/home/' + user + '/.config/awesome/awesome-wm-widgets' }}"
+
+### text ###
+
+- name: Neovim
+  package:
+    name: neovim
+    state: present
+
+- name: Mousepad
+  package:
+    name: mousepad
+    state: present
+
+### internet ###
+
+- name: Librewolf
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: librewolf-bin
+    state: present
+
+### security ###
+
+- name: KeepassXC
+  package:
+    name: keepassxc
+    state: present
+
+- name: Nextcloud
+  package:
+    name: nextcloud-client
+    state: present
+
+### display ###
+
+- name: ArandR
+  package:
+    name: arandr
+    state: present

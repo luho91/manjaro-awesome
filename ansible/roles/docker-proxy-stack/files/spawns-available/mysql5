@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME="proxy-mysql5"
+
+docker run --tty --detach \
+    --name "${CONTAINER_NAME}" \
+    --volume "proxy-data-db5:/var/lib/mysql" \
+    --volume "${DATA_PATH}:/var/data" \
+    --network "${NETWORK_NAME}" \
+    --restart unless-stopped \
+    --env TZ=Europe/Amsterdam \
+    --env MYSQL_ROOT_PASSWORD=root \
+    --env MYSQL_PORT=3306 \
+    mysql:5.7 --character-set-server=utf8mb4 \
+              --collation-server=utf8mb4_unicode_ci \
+              --sql_mode="STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"

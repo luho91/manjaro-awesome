@@ -1,0 +1,30 @@
+---
+# tasks file for comfort
+
+### screenshots ###
+
+- name: install flameshot
+  package:
+    name: flameshot
+    state: present
+
+### music ###
+
+- name: install spotify
+  package:
+    name: spotify-launcher
+    state: present
+
+### video ###
+
+- name: install obs
+  package:
+    name: obs-studio
+    state: present
+
+### image ###
+
+- name: install gimp
+  package:
+    name: gimp
+    state: present

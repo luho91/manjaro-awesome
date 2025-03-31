@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME="proxy-pma"
+
+docker run --tty --detach \
+    --name "${CONTAINER_NAME}" \
+    --volume "${DATA_PATH}:/var/data" \
+    --network "${NETWORK_NAME}" \
+    --restart unless-stopped \
+    --env TZ=Europe/Amsterdam \
+    --env VIRTUAL_HOST=pma.docker.test \
+    --env VIRTUAL_PORT=80 \
+    --env PMA_ARBITRARY=1 \
+    --env PMA_HOST=proxy-mysql5 \
+    --env PMA_USER=root \
+    --env PMA_PASSWORD=root \
+    phpmyadmin:latest

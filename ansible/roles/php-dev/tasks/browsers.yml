@@ -1,0 +1,18 @@
+# install some normie browsers
+
+- name: install google chrome
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: google-chrome
+    state: present
+
+- name: install firefox
+  package:
+    name: firefox
+    state: present
+
+- name: install brave
+  package:
+    name: brave-browser
+    state: present

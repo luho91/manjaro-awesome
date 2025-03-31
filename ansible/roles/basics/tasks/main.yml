@@ -1,0 +1,311 @@
+---
+# tasks file for basics
+
+# root stuff
+
+- name: Update pacman (pacman -Syu)
+  become: yes
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+    upgrade_extra_args: --noconfirm
+
+- name: Install vim
+  become: yes
+  package:
+    name: vim
+    state: present
+
+- name: Install tmux
+  become: yes
+  package:
+    name: tmux
+    state: present
+
+- name: Install base-devel
+  become: yes
+  package:
+    name: base-devel
+    state: present
+
+- name: Create the `aur_builder` user
+  become: yes
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: yes
+    group: wheel
+
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+    state: present
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    validate: 'visudo -cf %s'
+
+- name: Install openssl
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: openssl
+    state: present
+
+- name: Install sstp-client
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: sstp-client
+    state: present
+
+- name: Install networkmanager-sstp
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: network-manager-sstp
+    state: present
+
+- name: Remove xdg-desktop-portal-gnome (due to bug and slow startup time)
+  become: yes
+  package:
+    name: xdg-desktop-portal-gnome
+    state: absent
+
+- name: Install xdg-desktop-portal-gtk
+  become: yes
+  package:
+    name: xdg-desktop-portal-gtk
+    state: present
+
+- name: Install git
+  become: yes
+  package:
+    name: git
+    state: present
+
+- name: Install yay AUR Helper
+  become: false
+  ansible.builtin.shell:
+    cmd: git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+    creates: /usr/bin/yay
+
+- name: Install multiple packages
+  community.general.flatpak:
+    name:
+      - org.onlyoffice.desktopeditors
+      - org.libreoffice.LibreOffice
+      - com.slack.Slack
+      - us.zoom.Zoom
+
+- name: Install Arandr display manager
+  become: yes
+  package:
+    name: arandr
+    state: present
+
+- name: Install bat replacement of cat
+  become: yes
+  package:
+    name: bat
+    state: present
+
+- name: Install fd replacement of find
+  become: yes
+  package:
+    name: fd
+    state: present
+
+- name: Install Alacritty
+  become: yes
+  package:
+    name: alacritty
+    state: present
+
+- name: Install xterm
+  become: yes
+  package:
+    name: xterm
+    state: present
+
+- name: Install Gnome Terminal
+  become: yes
+  package:
+    name: gnome-terminal
+    state: present
+
+- name: Install Midnight Commander
+  become: yes
+  package:
+    name: mc
+    state: present
+
+- name: Install exa
+  become: yes
+  package:
+    name: exa
+    state: present
+
+- name: Install ripgrep
+  become: yes
+  package:
+    name: ripgrep
+    state: present
+
+- name: Instal tldr
+  become: yes
+  package:
+    name: tealdeer
+    state: present
+
+- name: Install tree
+  become: yes
+  package:
+    name: tree
+    state: present
+
+- name: Install pip3
+  become: yes
+  package:
+    name: python-pip
+    state: present
+
+- name: Install npm
+  become: yes
+  package:
+    name: npm
+    state: present
+
+- name: Install wget
+  become: yes
+  package:
+    name: wget
+    state: present
+#
+#- name: Create the custom user
+#  become: yes
+#  ansible.builtin.user:
+#    name: "{{ user }}"
+#    shell: /usr/bin/bash
+
+- name: Allow the custom user to run sudo without a password
+  become: yes
+  ansible.builtin.lineinfile:
+    path: "{{ '/etc/sudoers.d/' + user + '-allow-to-sudo-without-password' }}"
+    state: present
+    line: "{{ user + ' ALL=(ALL) NOPASSWD:ALL' }}"
+    create: yes
+    validate: 'visudo -cf %s'
+
+- name: Set keyboardlayout to `de`
+  become: yes
+  ansible.builtin.shell:
+    cmd: "localectl --no-convert set-x11-keymap de"
+
+- name: Remove virtualbox nox-guest packages (utils)
+  become: yes
+  package:
+    name: virtualbox-guest-utils-nox
+    state: absent
+
+- name: Install Node Version Manager (nvm)
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: nvm
+    state: present
+
+- name: Install htop
+  become: yes
+  package:
+    name: htop
+    state: present
+
+- name: Install feh
+  become: yes
+  package:
+    name: feh
+    state: present
+
+- name: Install Chrome
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: google-chrome
+    state: present
+
+- name: Install Firefox
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: firefox
+    state: present
+
+- name: Install wormhole
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: magic-wormhole
+    state: present
+
+- name: Install fzf
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: fzf
+    state: present
+
+- name: Install mousepad
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: mousepad
+    state: present
+
+- name: Install xfce
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: xfce4
+    state: present
+
+- name: Install xfce-goodies
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: xfce4-goodies
+    state: present
+
+- name: Install VNC Server
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: tigervnc
+    state: present
+
+- name: Install flameshot
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: flameshot
+    state: present
+
+- name: Install peek
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    use: yay
+    name: peek
+    state: present

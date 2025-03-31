@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: true
+  vars:
+    user: luho
+  roles:
+    - base
+    - admin
+    - docker-proxy-stack
+    - php-dev
+    - comfort

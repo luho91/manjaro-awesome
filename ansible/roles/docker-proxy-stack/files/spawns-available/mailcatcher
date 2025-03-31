@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+CONTAINER_NAME="proxy-mailcatcher"
+
+docker run --tty --detach \
+    --name "${CONTAINER_NAME}" \
+    --volume "${DATA_PATH}:/var/data" \
+    --network "${NETWORK_NAME}" \
+    --restart unless-stopped \
+    --env VIRTUAL_HOST=mailcatcher.docker.test \
+    --env VIRTUAL_PORT=443 \
+    sengorius/proxy-mailcatcher:latest
