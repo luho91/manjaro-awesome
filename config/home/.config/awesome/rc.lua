@@ -47,6 +47,20 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/luho/.config/awesome/gtk/theme.lua")
 
+-- Start appearance settings daemon
+-- this will sometimes create a race condition:
+-- awful.spawn.with_shell("xfsettingsd --no-keyboard")
+-- instead, use this:
+gears.timer {
+    timeout = 2,
+    autostart = true,
+    single_shot = true,
+    callback = function()
+	awful.spawn.with_shell("pkill xfsettingsd; sleep 0.3; xfsettingsd --no-keyboard")
+    end
+}
+
+
 local batteryarc_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
 local volume_widget = require("awesome-wm-widgets.volume-widget.volume")
 local logout_menu_widget = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
@@ -111,7 +125,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock("W%V - %m/%d, %H:%M")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -220,7 +234,8 @@ awful.screen.connect_for_each_screen(function(s)
             wibox.widget.systray(),
 	    batteryarc_widget{
 		    show_current_level = true,
-		    arc_thickness = 1
+		    arc_thickness = 1,
+		    show_notification_mode = "on_click"
 	    },
 	    volume_widget{
 		    widget_type = "arc",
@@ -243,6 +258,9 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    awful.key({                   }, "Print", function()
+	awful.spawn("flameshot gui")
+    end, { description = "Take a screenshot with Flameshot", group = "screenshot" }),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -581,3 +599,12 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Autostart apps
+autorun = true
+autorunApps = { "nm-applet" }
+if autorun then
+    for app = 1, #autorunApps do
+	awful.util.spawn(autorunApps[app])
+    end
+end

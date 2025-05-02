@@ -1,6 +1,13 @@
 ---
 # tasks file for php-dev
 
+### admin ###
+
+- name: install wormhole
+  package:
+    name: magic-wormhole
+    state: present
+
 ### ide ###
 
 - name: install phpstorm
@@ -17,7 +24,7 @@
     name: phpstorm-jre
     state: present
 
-- name: Install phpstorm url handler
+- name: install phpstorm url handler
   become: no
   kewlfft.aur.aur:
     use: yay
@@ -31,7 +38,36 @@
 
 ### notes ###
 
-- name: obsidian
+- name: install obsidian
   package:
     name: obsidian
     state: present
+
+### javascript ###
+
+- name: install npm
+  package:
+    name: npm
+    state: present
+
+- name: install nvm
+  package:
+    name: nvm
+    state: present
+
+### phone ###
+
+- name: install linphone
+  ansible.builtin.get_url:
+    url: https://download.linphone.org/releases/linux/latest_app
+    dest: "/home/{{ user }}/Applications/linphone.AppImage"
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: trigger appimagelauncher integration
+  become: false
+  ansible.builtin.shell: |
+    setsid "/home/{{ user }}/Applications/linphone.AppImage" &
+  args:
+    executable: /bin/bash

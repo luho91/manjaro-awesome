@@ -14,14 +14,34 @@
     cmd: timedatectl set-ntp true
 
 - name: install yay
-  become: false
-  ansible.builtin.shell:
-    cmd: git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+  become: no
+  ansible.builtin.shell: >
+    git clone https://aur.archlinux.org/yay.git &&
+    cd yay &&
+    makepgk -si --noconfirm &&
+    rm -rf "/home/{{ user }}/yay"
+  args:
     creates: /usr/bin/yay
+
+- name: upgrade aur
+  become: no
+  kewlfft.aur.aur:
+    upgrade: yes
+
+- name: install flatpak
+  package:
+    name: flatpak
+    state: present
+
+# required for nvim global clipboard
+- name: install xclip
+  package:
+    name: xclip
+    state: present
 
 ### awesome widgets ###
 
-- name: Download widgets repository
+- name: download widgets repository
   ansible.builtin.shell:
     cmd: git clone https://github.com/streetturtle/awesome-wm-widgets.git
     chdir: "{{ '/home/' + user + '/.config/awesome/' }}"
@@ -29,19 +49,19 @@
 
 ### text ###
 
-- name: Neovim
+- name: install neovim
   package:
     name: neovim
     state: present
 
-- name: Mousepad
+- name: install mousepad
   package:
     name: mousepad
     state: present
 
 ### internet ###
 
-- name: Librewolf
+- name: install librewolf
   become: no
   kewlfft.aur.aur:
     use: yay
@@ -50,19 +70,21 @@
 
 ### security ###
 
-- name: KeepassXC
+- name: install keepassxc
   package:
     name: keepassxc
     state: present
 
-- name: Nextcloud
+- name: install nextcloud
   package:
     name: nextcloud-client
     state: present
 
 ### display ###
 
-- name: ArandR
+- name: install arandr
   package:
     name: arandr
     state: present
+
+- import_tasks: appimagelauncher.yml

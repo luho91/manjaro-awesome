@@ -1,0 +1,12 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="xfce4-settings-editor" version="1.0">
+  <property name="Keyboard" type="empty">
+    <property name="UseXfceHotkeys" type="bool" value="false"/>
+  </property>
+  <property name="last" type="empty">
+    <property name="window-width" type="int" value="947"/>
+    <property name="window-height" type="int" value="1016"/>
+    <property name="paned-position" type="int" value="180"/>
+  </property>
+</channel>

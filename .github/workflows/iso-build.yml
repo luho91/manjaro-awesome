@@ -6,7 +6,7 @@ on:
 
 jobs:
   prepare-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: styfle/cancel-workflow-action@0.12.1
         with:
@@ -22,7 +22,7 @@ jobs:
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
       stable: ${{ steps.receive.outputs.stable-pkg }}
   build-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [prepare-release]
     strategy:
       matrix:

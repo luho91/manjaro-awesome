@@ -28,3 +28,27 @@
   package:
     name: gimp
     state: present
+
+### office ###
+
+- name: install onlyoffice (flatpak)
+  community.general.flatpak:
+    name: org.onlyoffice.desktopeditors
+    state: present
+
+- name: install libreoffice (flatpak)
+  community.general.flatpak:
+    name: org.libreoffice.LibreOffice
+    state: present
+
+### themes ###
+
+- name: install xfce4-settings
+  package:
+    name: xfce4-settings
+    state: present
+
+- name: install gtk-engine-murrine
+  package:
+    name: gtk-engine-murrine
+    state: present

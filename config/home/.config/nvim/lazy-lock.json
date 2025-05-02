@@ -1,0 +1,5 @@
+{
+  "ale": { "branch": "master", "commit": "1aaeb2cdae9f031a8621415c3fbb29dc722a29d5" },
+  "glow.nvim": { "branch": "main", "commit": "5d5954b2f22e109d4a6eba8b2618c5b96e4ee7a2" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" }
+}

@@ -1,0 +1,14 @@
+- name: install appimagelauncher
+  become: no
+  kewlfft.aur.aur:
+    use: yay
+    name: appimagelauncher
+    state: present
+
+- name: create appimagelauncher folder
+  ansible.builtin.file:
+    path: "/home/{{ user }}/Applications"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: "0755"

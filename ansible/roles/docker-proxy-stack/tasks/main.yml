@@ -45,54 +45,54 @@
 
 - name: clone docker-proxy-stack
   ansible.builtin.git:
-    repo: 'https://github.com/Sengorius/docker-proxy-stack.git'
-    dest: "{{ '/home/' + user + '/docker-proxy-stack' }}"
+    repo: "https://github.com/Sengorius/docker-proxy-stack.git"
+    dest: "/home/{{ user }}/docker-proxy-stack"
     version: v2.1.0
     force: yes
     update: no
 
 - name: make sure the cloned folder belongs to the user recursively
   ansible.builtin.file:
-    path: "{{ '/home/' + user + '/docker-proxy-stack' }}"
+    path: "/home/{{ user }}/docker-proxy-stack"
     owner: "{{ user }}"
     group: "{{ user }}"
     recurse: yes
 
 - name: copy .env.template to .env
   ansible.builtin.copy:
-    src: "{{ '/home/' + user + '/docker-proxy-stack/.env.template' }}"
-    dest: "{{ '/home/' + user + '/docker-proxy-stack/.env' }}"
+    src: "/home/{{ user }}/docker-proxy-stack/.env.template"
+    dest: "/home/{{ user }}/docker-proxy-stack/.env"
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: '0644'
 
 - name: make DockerExec executable
   ansible.builtin.file:
-    path: "{{ '/home/' + user + '/docker-proxy-stack/DockerExec' }}"
+    path: "/home/{{ user }}/docker-proxy-stack/DockerExec"
     mode: '0755'
 
 - name: ensure .local/bin exists
   ansible.builtin.file:
-    path: "{{ '/home/' + user + '/.local/bin' }}"
+    path: "/home/{{ user }}/.local/bin"
     state: directory
 
 - name: create a soft link to DockerExec
   ansible.builtin.file:
-    src: "{{ '/home/' + user + '/docker-proxy-stack/DockerExec' }}"
-    dest: "{{ '/home/' + user + '/.local/bin/DockerExec' }}"
+    src: "/home/{{ user }}/docker-proxy-stack/DockerExec"
+    dest: "/home/{{ user }}/.local/bin/DockerExec"
     state: link
 
 - name: copy available spawns to working directory
   ansible.builtin.copy:
     src: spawns-available
-    dest: "{{ '/home/' + user + '/docker-proxy-stack/' }}"
+    dest: "/home/{{ user }}/docker-proxy-stack/"
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: '0644'
 
 - name: check spawns.sh on localhost
   ansible.builtin.lineinfile:
-    path: "{{ '/home/' + user + '/docker-proxy-stack/src/spawns.sh' }}"
+    path: "/home/{{ user }}/docker-proxy-stack/src/spawns.sh"
     line: '### VCAT SPAWNS ###'
     state: present
     create: false
@@ -103,24 +103,39 @@
 - name: overwrite spawns.sh
   ansible.builtin.copy:
     src: spawns.sh
-    dest: "{{ '/home/' + user + '/docker-proxy-stack/src' }}"
+    dest: "/home/{{ user }}/docker-proxy-stack/src"
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: '0644'
   when: check_spawn.changed
 
 - name: get all spawns
-  ansible.builtin.command: "{{ '/home/' + user + '/.local/bin/DockerExec spawn status' }}"
+  ansible.builtin.command: "/home/{{ user }}/.local/bin/DockerExec spawn status"
   register: spawn_status
   changed_when: false
+
+- name: ensure spawns-enabled directory exists
+  ansible.builtin.file:
+    path: "/home/{{ user }}/docker-proxy-stack/spawns-enabled"
+    state: directory
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user }}"
 
 # hack regex to get the list of enabled spawns
 - name: extract enabled spawns
   ansible.builtin.set_fact:
-    enabled_spawns: "{{ spawn_status.stdout | regex_findall('enabled in order:\\x1B\\[[0-9;]*m?\\n((?:  - .+\\n?)+)', multiline=True) | first | regex_findall('- ([^\\n]+)') }}"
+    enabled_spawns: >-
+      {{
+        (
+          spawn_status.stdout
+          | regex_findall('enabled in order:\\x1B\\[[0-9;]*m?\\n((?:  - .+\\n?)+)', multiline=True)
+          | default ([])
+        )[0] | default('') | regex_findall('- ([^\\n]+)')
+      }}
 
 - name: enable the available spawns
-  ansible.builtin.command: "{{ '/home/' + user + '/.local/bin/DockerExec spawn enable ' + item }}"
+  ansible.builtin.command: "/home/{{ user }}/.local/bin/DockerExec spawn enable {{ item }}"
   loop:
     - adminer
     - mysql5
@@ -139,18 +154,18 @@
 
 - name: init certs
   ansible.builtin.shell:
-    cmd: "yes '' | {{ '/home/' + user + '/.local/bin/DockerExec init-certs' }}"
-    creates: "{{ '/home/' + user + '/docker-proxy-stack/certs/rootCA.crt' }}"
+    cmd: "yes '' | /home/{{ user }}/.local/bin/DockerExec init-certs"
+    creates: "/home/{{ user }}/docker-proxy-stack/certs/rootCA.crt"
 
 - name: init proxy stack
   ansible.builtin.shell:
-    cmd: "yes | {{ '/home/' + user + '/.local/bin/DockerExec proxy init > /dev/null 2>&1 &' }}"
+    cmd: "yes | /home/{{ user }}/.local/bin/DockerExec proxy init > /dev/null 2>&1 &"
   async: 1
   poll: 0
 
 - name: make sure the cloned folder belongs to the user recursively
   ansible.builtin.file:
-    path: "{{ '/home/' + user + '/docker-proxy-stack' }}"
+    path: "/home/{{ user }}/docker-proxy-stack"
     owner: "{{ user }}"
     group: "{{ user }}"
     recurse: yes

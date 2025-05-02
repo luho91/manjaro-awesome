@@ -1,0 +1,13 @@
+[user]
+	name = luho
+	email = lukas.holzheid@vcat.de
+[core]
+	editor = nvim
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = nvimdiff
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" -c \"wincmd J\"

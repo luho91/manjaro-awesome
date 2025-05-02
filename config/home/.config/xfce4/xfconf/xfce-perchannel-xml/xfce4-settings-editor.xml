@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<channel name="xfce4-settings-editor" version="1.0">
+  <property name="Keyboard" type="empty">
+    <property name="UseXfceHotkeys" type="bool" value="false"/>
+  </property>
+</channel>

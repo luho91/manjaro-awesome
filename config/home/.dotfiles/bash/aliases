@@ -1,0 +1,9 @@
+# listing
+alias ll='ls -lha'
+alias ..='cd ..'
+
+# projects
+alias bgg='cd ~/projects/bgg'
+
+# open nvim in current folder
+alias nvh='nvim .'
