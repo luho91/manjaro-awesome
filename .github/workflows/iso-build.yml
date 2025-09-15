@@ -1,30 +1,41 @@
 name: iso_build
+
 on:
   schedule:
-    - cron:  '30 2 * * 0'
+    - cron: '30 2 * * 0'  # Sundays 02:30 UTC
   workflow_dispatch:
+
+concurrency:
+  group: iso_build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
   prepare-release:
     runs-on: ubuntu-22.04
-    steps:
-      - uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-      - id: time
-        uses: nanzm/get-time-action@v1.1
-        with:
-          format: 'YYYYMMDDHHmm'
-      - id: receive
-        uses: boredland/kernel-info@main
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
-      longterm: ${{ steps.receive.outputs.longterm-pkg }}
-      stable: ${{ steps.receive.outputs.stable-pkg }}
+      longterm:    ${{ steps.receive.outputs.longterm-pkg }}
+      stable:      ${{ steps.receive.outputs.stable-pkg }}
+    steps:
+      - id: time
+        uses: nanzm/get-time-action@<sha>
+        with:
+          format: 'YYYYMMDDHHmmss'
+      - id: receive
+        uses: boredland/kernel-info@<sha>
+
   build-release:
     runs-on: ubuntu-22.04
     needs: [prepare-release]
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RELEASE_TAG: ${{ needs.prepare-release.outputs.release_tag }}-${{ github.run_number }}
     strategy:
+      fail-fast: false
       matrix:
         experimental: [false]
         edition: [awesome]
@@ -33,21 +44,26 @@ jobs:
         kernel:
           - ${{ needs.prepare-release.outputs.longterm }}
     steps:
-      - uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
+      # If current repo content is needed
+      # - uses: actions/checkout@<sha>
+
       - name: image-build-upload
-        uses: luho91/manjaro-iso-action@v3.0
+        uses: luho91/manjaro-iso-action@<sha>
         with:
           iso-profiles-repo: https://github.com/luho91/manjaro-awesome
-          edition: ${{ matrix.edition }}
-          branch: ${{ matrix.branch }}
-          scope: ${{ matrix.scope }}
-          kernel: ${{ matrix.kernel }}
-          release-tag: ${{ needs.prepare-release.outputs.release_tag }}
+          edition:     ${{ matrix.edition }}
+          branch:      ${{ matrix.branch }}
+          scope:       ${{ matrix.scope }}
+          kernel:      ${{ matrix.kernel }}
+          release-tag: ${{ env.RELEASE_TAG }}
+
       - name: rollback
-        if: ${{ cancelled() }}
+        if: ${{ failure() || cancelled() }}
         run: |
-          echo ${{ github.token }} | gh auth login --with-token
-          gh release delete ${{ needs.prepare-release.outputs.release_tag }} -y --repo ${{ github.repository }}
-          git push --delete origin ${{ needs.prepare-release.outputs.release_tag }}
+          set -euo pipefail
+          if gh release view "${RELEASE_TAG}" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            gh release delete "${RELEASE_TAG}" -y --repo "${{ github.repository }}"
+          fi
+          if git ls-remote --tags origin "refs/tags/${RELEASE_TAG}" | grep -q .; then
+            git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" :refs/tags/${RELEASE_TAG}
+          fi
