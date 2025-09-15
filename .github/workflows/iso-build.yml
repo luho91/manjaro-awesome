@@ -21,11 +21,11 @@ jobs:
       stable:      ${{ steps.receive.outputs.stable-pkg }}
     steps:
       - id: time
-        uses: nanzm/get-time-action@<sha>
+        uses: nanzm/get-time-action@v1.1
         with:
           format: 'YYYYMMDDHHmmss'
       - id: receive
-        uses: boredland/kernel-info@<sha>
+        uses: boredland/kernel-info@1.0.1
 
   build-release:
     runs-on: ubuntu-22.04
@@ -48,7 +48,7 @@ jobs:
       # - uses: actions/checkout@<sha>
 
       - name: image-build-upload
-        uses: luho91/manjaro-iso-action@<sha>
+        uses: luho91/manjaro-iso-action@v3.0
         with:
           iso-profiles-repo: https://github.com/luho91/manjaro-awesome
           edition:     ${{ matrix.edition }}
