@@ -48,7 +48,7 @@ jobs:
       # - uses: actions/checkout@<sha>
 
       - name: image-build-upload
-        uses: luho91/manjaro-iso-action@v3.1.4
+        uses: luho91/manjaro-iso-action@v3.1.5
         with:
           iso-profiles-repo: https://github.com/luho91/manjaro-awesome
           edition:     ${{ matrix.edition }}
